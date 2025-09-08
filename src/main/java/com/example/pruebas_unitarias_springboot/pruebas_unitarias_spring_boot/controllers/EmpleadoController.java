@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,19 +38,35 @@ public class EmpleadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Empleado> obtenerEmpleadoPorId(Long id) {
+    public ResponseEntity<Empleado> obtenerEmpleadoPorId(@PathVariable Long id) {
         Empleado empleado = empleadoService.getEmpleadoById(id);
-        return ResponseEntity.ok(empleado);
+        ResponseEntity<Empleado> response = null;
+        
+        if (empleado == null) {
+            response = ResponseEntity.notFound().build();
+        }else{
+            response = ResponseEntity.ok(empleado);
+        }
+
+        return response;
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Empleado> actualizarEmpleado(Long id, Empleado empleado) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable Long id, @RequestBody Empleado empleado) {
         Empleado empleadoActualizado = empleadoService.updateEmpleado(id, empleado);
-        return ResponseEntity.ok(empleadoActualizado);
+        ResponseEntity<Empleado> response = null;
+        
+        if (empleadoActualizado == null) {
+            response = ResponseEntity.notFound().build();
+        }else{
+            response = ResponseEntity.ok(empleadoActualizado);
+        }
+
+        return response;
     }
 
-    @PostMapping("/{id}/eliminar")
-    public ResponseEntity<String> eliminarEmpleado(Long id) {
+    @DeleteMapping("/{id}/eliminar")
+    public ResponseEntity<String> eliminarEmpleado(@PathVariable Long id) {
         empleadoService.deleteEmpleado(id);
         return ResponseEntity.ok("Empleado eliminado con exito");
     }
