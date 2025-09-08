@@ -13,10 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -49,7 +46,7 @@ public class EmpleadoControllerTest {
         
         given(empleadoService.saveEmpleado(any(Empleado.class))).willReturn(empleado); 
 
-        ResultActions response = mockMvc.perform(get("/api/empleados")
+        ResultActions response = mockMvc.perform(post("/api/empleados")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(empleado)));
 
@@ -72,7 +69,7 @@ public class EmpleadoControllerTest {
 
         given(empleadoService.getAllEmpleados()).willReturn(empleados);
 
-        ResultActions response = mockMvc.perform(post("/api/empleados")
+        ResultActions response = mockMvc.perform(get("/api/empleados")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(empleados)));
 
