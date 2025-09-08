@@ -1,8 +1,3 @@
-Este proyecto es un proyecto de prueba de cara a diseñar pruebas haciendo uso de Mockito. 
-
-Actualmente el código más relevante se encuentra en el fichero empleadoServiceTest.java 
-
-
 # Pruebas Unitarias con Spring Boot y Mockito
 
 Este repositorio contiene ejemplos prácticos de **pruebas unitarias en Spring Boot** utilizando **Mockito** y **JUnit 5**.  
